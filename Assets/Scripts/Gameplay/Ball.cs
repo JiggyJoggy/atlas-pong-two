@@ -99,7 +99,7 @@ namespace ZPong
                     speed = speed * 1.03f;
                 }
 
-                if (gameObject.transform.localScale.x > 0.25f)
+                if (gameObject.transform.localScale.x > 0.4f)
                 {
                     gameObject.transform.localScale += new Vector3(-0.02f, -0.02f, -0.02f);
                 }
@@ -172,6 +172,5 @@ namespace ZPong
         {
             ballActive = false;
         }
-
     }
 }

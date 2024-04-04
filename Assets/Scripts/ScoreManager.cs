@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.ComponentModel.Design.Serialization;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace ZPong
 
         public Animator leftGoalExplosion;
         public Animator rightGoalExplosion;
+
+        public GameObject FlashUI;
 
         public TMP_Text leftScoreText;
         public TMP_Text rightScoreText;
@@ -47,7 +50,7 @@ namespace ZPong
         {
             scorePlayer1++;
             leftScoreText.text = "" + scorePlayer1;
-
+            StartCoroutine(FlashScreen());
             rightGoalExplosion.SetTrigger("ScoredRight");
             Debug.Log("Player 1 scored! Current score: " + scorePlayer1);
 
@@ -59,7 +62,7 @@ namespace ZPong
         {
             scorePlayer2++;
             rightScoreText.text = "" + scorePlayer2;
-
+            StartCoroutine(FlashScreen());
             leftGoalExplosion.SetTrigger("ScoredLeft");
             Debug.Log("Player 2 scored! Current score: " + scorePlayer2);
 
@@ -117,6 +120,12 @@ namespace ZPong
             rightScoreText.text = "0";
 
             victoryUI.gameObject.SetActive(false);
+        }
+        public IEnumerator FlashScreen()
+        {
+            FlashUI.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            FlashUI.SetActive(false);
         }
     }
 }
