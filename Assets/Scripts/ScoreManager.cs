@@ -18,6 +18,7 @@ namespace ZPong
 
         public Animator leftGoalExplosion;
         public Animator rightGoalExplosion;
+        public Animator ScreenShake;
 
         public GameObject FlashUI;
 
@@ -50,6 +51,7 @@ namespace ZPong
         {
             scorePlayer1++;
             leftScoreText.text = "" + scorePlayer1;
+
             StartCoroutine(FlashScreen());
             rightGoalExplosion.SetTrigger("ScoredRight");
             Debug.Log("Player 1 scored! Current score: " + scorePlayer1);
@@ -62,6 +64,7 @@ namespace ZPong
         {
             scorePlayer2++;
             rightScoreText.text = "" + scorePlayer2;
+
             StartCoroutine(FlashScreen());
             leftGoalExplosion.SetTrigger("ScoredLeft");
             Debug.Log("Player 2 scored! Current score: " + scorePlayer2);

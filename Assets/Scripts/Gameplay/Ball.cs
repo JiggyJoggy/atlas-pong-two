@@ -9,6 +9,7 @@ namespace ZPong
     {
         public float speed = 5f;
         public float maxSpeed = 800f;
+        public Animator ScreenShake;
 
         private float screenTop = 527;
         private float screenBottom = -527;
@@ -24,6 +25,7 @@ namespace ZPong
 
         private void Start()
         {
+
             rectTransform = GetComponent<RectTransform>();
 
             if (PlayerPrefs.HasKey("BallSpeed"))
@@ -94,6 +96,9 @@ namespace ZPong
         {
             if (collision.gameObject.CompareTag("Paddle"))
             {
+                StartCoroutine(ScreenShakeTriggers());
+                StartCoroutine(SparkImpact());
+
                 if (speed < maxSpeed)
                 {
                     speed = speed * 1.03f;
@@ -171,6 +176,29 @@ namespace ZPong
         public void DisableBall()
         {
             ballActive = false;
+        }
+
+        IEnumerator SparkImpact()
+        {
+            ParticleSystem Sparks = gameObject.GetComponentInChildren<ParticleSystem>();
+
+            if (Sparks != null)
+            {
+                var emissionModule = Sparks.emission;
+
+                emissionModule.enabled = true;
+
+                yield return new WaitForSeconds(0.1f);
+
+                emissionModule.enabled = false;
+            }
+        }
+
+        public IEnumerator ScreenShakeTriggers()
+        {
+            ScreenShake.SetBool("BallImpact", true);
+            yield return new WaitForSeconds(1f);
+            ScreenShake.SetBool("BallImpact", false);
         }
     }
 }
